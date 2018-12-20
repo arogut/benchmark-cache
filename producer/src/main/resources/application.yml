@@ -10,5 +10,9 @@ producer:
   minPayloadSize: 1024
   maxPayloadSize: 1024
 
+logging:
+  level:
+    com.devkwondo: DEBUG
+
 server:
   port: 0

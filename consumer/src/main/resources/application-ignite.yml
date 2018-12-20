@@ -1,3 +1,17 @@
 ignite:
+  static:
+    itemCacheName: itemCache
+    itemIdQueueName: itemIdQueue
+  queue:
+    item-id:
+      cacheMode: PARTITIONED
+      atomicyMode: ATOMIC
+      backups: 2
+      collocated: false
   config:
     clientMode: true
+    cacheConfiguration:
+    - name: ${ignite.static.itemCacheName}
+      cacheMode: PARTITIONED
+      atomicyMode: TRANSACTIONAL
+      backups: 2

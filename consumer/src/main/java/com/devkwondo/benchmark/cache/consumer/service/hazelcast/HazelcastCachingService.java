@@ -1,27 +1,27 @@
-package com.devkwondo.benchmark.cache.consumer.service.ignite;
+package com.devkwondo.benchmark.cache.consumer.service.hazelcast;
 
 import com.devkwondo.benchmark.cache.consumer.service.CachingService;
+import com.hazelcast.cache.ICache;
+import com.hazelcast.core.IQueue;
 import lombok.AllArgsConstructor;
-import org.apache.ignite.IgniteCache;
-import org.apache.ignite.IgniteQueue;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
 @Service
-@Profile("ignite")
-public class IgniteCachingService implements CachingService<String, Object> {
+@Profile("hazelcast")
+public class HazelcastCachingService<K, V> implements CachingService<K, V> {
 
-    private final IgniteQueue<String> itemIdQueue;
-    private final IgniteCache<String, Object> itemCache;
+    private final IQueue<K> itemIdQueue;
+    private final ICache<K, V> itemCache;
 
     @Override
-    public String poll() {
+    public K poll() {
         return itemIdQueue.poll();
     }
 
     @Override
-    public Object get(String id) {
+    public V get(K id) {
         if (id != null) {
             return itemCache.get(id);
         }
@@ -29,7 +29,7 @@ public class IgniteCachingService implements CachingService<String, Object> {
     }
 
     @Override
-    public boolean remove(String id) {
+    public boolean remove(K id) {
         if (id != null) {
             return itemCache.remove(id);
         }

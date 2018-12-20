@@ -2,7 +2,7 @@ spring:
   application:
     name: producer
   profiles:
-    active: hazelcast
+    active: ignite
 
 producer:
   itemsToProduce: 10

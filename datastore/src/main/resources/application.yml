@@ -2,7 +2,7 @@ spring:
   application:
     name: datastore
   profiles:
-    active: hazelcast
+    active: ignite
 
 server:
   port: 0

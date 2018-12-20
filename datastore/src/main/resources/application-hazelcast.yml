@@ -1,0 +1,8 @@
+hazelcast:
+  static:
+    itemCacheName: itemCache
+    itemIdQueueName: itemIdQueue
+  config:
+    - name: ${hazelcast.static.itemCacheName}
+      backupCount: 2
+

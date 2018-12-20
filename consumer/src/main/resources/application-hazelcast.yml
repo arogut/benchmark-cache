@@ -1,0 +1,6 @@
+hazelcast:
+  static:
+    itemCacheName: itemCache
+    itemIdQueueName: itemIdQueue
+  config:
+    instanceName: hazelcast-client

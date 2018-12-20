@@ -28,6 +28,7 @@ public class ConsumerService {
                     try {
                         String itemId = cachingService.poll();
                         if (itemId != null) {
+                            log.debug("Polled task with id {}.", itemId);
                             itemsToConsume.decrementAndGet();
                             Object item = cachingService.get(itemId);
                             if (item == null) {

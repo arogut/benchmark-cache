@@ -8,6 +8,9 @@ ignite:
       atomicyMode: ATOMIC
       backups: 2
       collocated: false
+  streamer:
+    bufferSize: 100
+    autoFlushFrequency: 20
   config:
     clientMode: true
     cacheConfiguration:

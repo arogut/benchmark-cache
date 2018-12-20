@@ -1,7 +1,7 @@
 package com.devkwondo.benchmark.cache.producer.configuration;
 
-import com.devkwondo.benchmark.cache.producer.model.Item;
-import lombok.AllArgsConstructor;
+import com.devkwondo.benchmark.cache.producer.configuration.properties.IgniteDataStreamerConfigurationProperties;
+import com.devkwondo.benchmark.cache.model.domain.Item;
 import org.apache.ignite.*;
 import org.apache.ignite.configuration.CollectionConfiguration;
 import org.apache.ignite.configuration.IgniteConfiguration;
@@ -54,8 +54,12 @@ public class ApacheIgniteConfiguration {
     @Bean(destroyMethod = "close")
     IgniteDataStreamer<String, Item> itemDataStreamer(
             Ignite ignite,
-            @Value("${ignite.static.itemCacheName}") String cacheName
+            @Value("${ignite.static.itemCacheName}") String cacheName,
+            IgniteDataStreamerConfigurationProperties igniteDataStreamerConfigurationProperties
     ) {
-        return ignite.dataStreamer(cacheName);
+        IgniteDataStreamer igniteDataStreamer = ignite.dataStreamer(cacheName);
+        igniteDataStreamer.autoFlushFrequency(igniteDataStreamerConfigurationProperties.getAutoFlushFrequency());
+        igniteDataStreamer.perNodeBufferSize(igniteDataStreamerConfigurationProperties.getBufferSize());
+        return igniteDataStreamer;
     }
 }

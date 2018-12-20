@@ -1,4 +1,4 @@
-package com.devkwondo.benchmark.cache.producer.model;
+package com.devkwondo.benchmark.cache.model.domain;
 
 import lombok.Value;
 

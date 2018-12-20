@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: producer
+  profiles:
+    active: ignite
+
+producer:
+  itemsToProduce: 10
+  parallelism: 2
+  minPayloadSize: 1024
+  maxPayloadSize: 1024
+
+server:
+  port: 0

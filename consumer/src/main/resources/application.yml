@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: producer
+  profiles:
+    active: ignite
+
+server:
+  port: 0

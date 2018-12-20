@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: datastore
+  profiles:
+    active: ignite
+
+server:
+  port: 0

@@ -1,7 +1,7 @@
 package com.devkwondo.benchmark.cache.producer.configuration;
 
-import com.devkwondo.benchmark.cache.producer.configuration.properties.IgniteDataStreamerConfigurationProperties;
 import com.devkwondo.benchmark.cache.model.domain.Item;
+import com.devkwondo.benchmark.cache.producer.configuration.properties.IgniteDataStreamerConfigurationProperties;
 import org.apache.ignite.*;
 import org.apache.ignite.configuration.CollectionConfiguration;
 import org.apache.ignite.configuration.IgniteConfiguration;
@@ -31,7 +31,7 @@ public class ApacheIgniteConfiguration {
     @Bean(destroyMethod = "close")
     IgniteQueue<String> itemIdQueue(
             Ignite ignite,
-            @Value("${ignite.static.itemIdQueueName") String queueName,
+            @Value("${ignite.static.itemIdQueueName}") String queueName,
             CollectionConfiguration itemIdQueueConfiguration
     ) {
         return ignite.queue(queueName, 0, itemIdQueueConfiguration);

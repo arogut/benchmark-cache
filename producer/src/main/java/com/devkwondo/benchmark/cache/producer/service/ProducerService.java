@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @AllArgsConstructor
@@ -37,7 +39,14 @@ public class ProducerService {
 
             });
         }
-        log.info("Cache population finished.");
+        try {
+            ((ExecutorService) executor).shutdown();
+            ((ExecutorService) executor).awaitTermination(5, TimeUnit.MINUTES);
+        } catch (InterruptedException e) {
+            log.warn(e.getMessage(), e);
+        } finally {
+            log.info("Cache population finished.");
+        }
     }
 
     private Item createNewItem() {

@@ -1,14 +1,18 @@
 package com.devkwondo.benchmark.cache.consumer.configuration;
 
+import com.devkwondo.benchmark.cache.commons.ignite.queue.QueueProxyInvocationHandler;
 import org.apache.ignite.*;
 import org.apache.ignite.configuration.CollectionConfiguration;
 import org.apache.ignite.configuration.IgniteConfiguration;
+import org.apache.ignite.internal.processors.datastructures.GridCacheQueueProxy;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+
+import java.lang.reflect.Proxy;
 
 @Profile("ignite")
 @Configuration
@@ -28,10 +32,11 @@ public class ApacheIgniteConfiguration {
     @Bean(destroyMethod = "close")
     IgniteQueue<String> itemIdQueue(
             Ignite ignite,
-            @Value("${ignite.static.itemIdQueueName") String queueName,
+            @Value("${ignite.static.itemIdQueueName}") String queueName,
             CollectionConfiguration itemIdQueueConfiguration
-    ) {
-        return ignite.queue(queueName, 0, itemIdQueueConfiguration);
+    ) throws IllegalAccessException, NoSuchFieldException, NoSuchMethodException {
+        GridCacheQueueProxy gridCacheQueueProxy = (GridCacheQueueProxy) ignite.queue(queueName, 0, itemIdQueueConfiguration);
+        return (IgniteQueue<String>) Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class[] {IgniteQueue.class}, new QueueProxyInvocationHandler(gridCacheQueueProxy));
     }
 
     @Bean

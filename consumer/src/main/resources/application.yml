@@ -4,8 +4,12 @@ spring:
   profiles:
     active: ignite
 
+logging:
+  level:
+    com.devkwondo: DEBUG
+
 consumer:
-  itemsToConsume: 10
+  itemsToConsume: 100
   parallelism: 2
   sleepDuration: 100
 

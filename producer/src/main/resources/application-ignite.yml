@@ -6,7 +6,7 @@ ignite:
     item-id:
       cacheMode: PARTITIONED
       atomicyMode: ATOMIC
-      backups: 2
+      backups: 1
       collocated: false
   streamer:
     bufferSize: 100
@@ -17,7 +17,7 @@ ignite:
       - name: ${ignite.static.itemCacheName}
         cacheMode: PARTITIONED
         atomicyMode: TRANSACTIONAL
-        backups: 2
+        backups: 1
 
 
 

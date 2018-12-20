@@ -5,7 +5,7 @@ spring:
     active: ignite
 
 producer:
-  itemsToProduce: 10
+  itemsToProduce: 100
   parallelism: 2
   minPayloadSize: 1024
   maxPayloadSize: 1024

@@ -7,6 +7,10 @@ import org.apache.ignite.IgniteQueue;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Profile("ignite")
 @AllArgsConstructor
 @Service
 @Profile("ignite")
@@ -17,7 +21,9 @@ public class IgniteCachingService implements CachingService<String, Object> {
 
     @Override
     public String poll() {
-        return itemIdQueue.poll();
+        List<String> results = new ArrayList<>(1);
+        itemIdQueue.drainTo(results, 1);
+        return results.isEmpty() ? null : results.get(0);
     }
 
     @Override

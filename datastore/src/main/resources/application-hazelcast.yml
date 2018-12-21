@@ -3,6 +3,12 @@ hazelcast:
     itemCacheName: itemCache
     itemIdQueueName: itemIdQueue
   config:
-    - name: ${hazelcast.static.itemCacheName}
-      backupCount: 2
+    cacheConfigs:
+      itemCache:
+        name: ${hazelcast.static.itemCacheName}
+        backupCount: 2
+    queueConfigs:
+      itemIdQueue:
+        name: ${hazelcast.static.itemIdQueue}
+        backupCount: 2
 

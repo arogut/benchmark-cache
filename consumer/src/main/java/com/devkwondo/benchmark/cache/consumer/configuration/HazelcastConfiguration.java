@@ -26,15 +26,15 @@ public class HazelcastConfiguration {
         return new ClientConfig();
     }
 
-    @Bean
+    @Bean(destroyMethod = "destroy")
     IQueue<String> itemIdQueue(
             HazelcastInstance hz,
-            @Value("${hazelcast.static.itemIdQueueName") String queueName
+            @Value("${hazelcast.static.itemIdQueueName}") String queueName
     ) {
         return hz.getQueue(queueName);
     }
 
-    @Bean
+    @Bean(destroyMethod = "destroy")
     ICache<String, Object> itemCache(
             HazelcastInstance hz,
             @Value("${hazelcast.static.itemCacheName}") String cacheName

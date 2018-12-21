@@ -9,6 +9,6 @@ hazelcast:
         backupCount: 2
     queueConfigs:
       itemIdQueue:
-        name: ${hazelcast.static.itemIdQueue}
+        name: ${hazelcast.static.itemIdQueueName}
         backupCount: 2
 

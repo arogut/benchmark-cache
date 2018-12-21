@@ -15,6 +15,7 @@
         <module>producer</module>
         <module>consumer</module>
         <module>model</module>
+        <module>ignite-commons</module>
     </modules>
 
 

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@Profile("ignite")
 @AllArgsConstructor
 @Service
 @Profile("ignite")

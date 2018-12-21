@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @AllArgsConstructor
 @Service
 @Profile("hazelcast")
@@ -17,7 +20,9 @@ public class HazelcastCachingService<K, V> implements CachingService<K, V> {
 
     @Override
     public K poll() {
-        return itemIdQueue.poll();
+        List<K> results = new ArrayList<>(1);
+        itemIdQueue.drainTo(results, 1);
+        return results.isEmpty() ? null : results.get(0);
     }
 
     @Override

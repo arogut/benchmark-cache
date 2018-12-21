@@ -1,6 +1,7 @@
 package com.devkwondo.benchmark.cache.consumer.configuration;
 
 import com.devkwondo.benchmark.cache.commons.ignite.queue.QueueProxyInvocationHandler;
+import com.devkwondo.benchmark.cache.model.domain.Item;
 import org.apache.ignite.*;
 import org.apache.ignite.configuration.CollectionConfiguration;
 import org.apache.ignite.configuration.IgniteConfiguration;
@@ -46,7 +47,7 @@ public class ApacheIgniteConfiguration {
     }
 
     @Bean(destroyMethod = "close")
-    IgniteCache<String, Object> itemCache(
+    IgniteCache<String, Item> itemCache(
             Ignite ignite,
             @Value("${ignite.static.itemCacheName}") String cacheName
     ) {

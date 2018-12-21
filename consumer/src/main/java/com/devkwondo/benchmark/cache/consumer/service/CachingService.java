@@ -1,9 +1,12 @@
 package com.devkwondo.benchmark.cache.consumer.service;
 
-public interface CachingService<K,V> {
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
-    K poll();
-    V get(K k);
+public interface CachingService<K, V> {
+
+    List<K> poll();
+    Collection<V> get(Set<K> k);
     boolean remove(K k);
-
 }

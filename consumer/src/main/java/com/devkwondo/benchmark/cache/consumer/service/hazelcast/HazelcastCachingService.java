@@ -3,14 +3,14 @@ package com.devkwondo.benchmark.cache.consumer.service.hazelcast;
 import com.devkwondo.benchmark.cache.consumer.service.CachingService;
 import com.hazelcast.cache.ICache;
 import com.hazelcast.core.IQueue;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 @Profile("hazelcast")
 public class HazelcastCachingService<K, V> implements CachingService<K, V> {
@@ -18,19 +18,22 @@ public class HazelcastCachingService<K, V> implements CachingService<K, V> {
     private final IQueue<K> itemIdQueue;
     private final ICache<K, V> itemCache;
 
+    @Value("${consumer.pollBatchSize:1}")
+    private int batchSize;
+
     @Override
-    public K poll() {
-        List<K> results = new ArrayList<>(1);
-        itemIdQueue.drainTo(results, 1);
-        return results.isEmpty() ? null : results.get(0);
+    public List<K> poll() {
+        List<K> results = new ArrayList<>(batchSize);
+        itemIdQueue.drainTo(results, batchSize);
+        return results;
     }
 
     @Override
-    public V get(K id) {
-        if (id != null) {
-            return itemCache.get(id);
+    public Collection<V> get(Set<K> ids) {
+        if (!ids.isEmpty()) {
+            return itemCache.getAll(ids).values();
         }
-        return null;
+        return Collections.emptyList();
     }
 
     @Override

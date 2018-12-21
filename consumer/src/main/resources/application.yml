@@ -10,6 +10,7 @@ logging:
 
 consumer:
   itemsToConsume: 100
+  batchSize: 10
   parallelism: 2
   sleepDuration: 100
 

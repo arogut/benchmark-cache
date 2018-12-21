@@ -29,7 +29,7 @@ public class HazelcastConfiguration {
     @Bean(destroyMethod = "destroy")
     IQueue<String> itemIdQueue(
             HazelcastInstance hz,
-            @Value("${hazelcast.static.itemIdQueueName") String queueName
+            @Value("${hazelcast.static.itemIdQueueName}") String queueName
     ) {
         return hz.getQueue(queueName);
     }

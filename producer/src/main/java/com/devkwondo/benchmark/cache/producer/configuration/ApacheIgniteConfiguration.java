@@ -31,7 +31,7 @@ public class ApacheIgniteConfiguration {
     @Bean(destroyMethod = "close")
     IgniteQueue<String> itemIdQueue(
             Ignite ignite,
-            @Value("${ignite.static.itemIdQueueName") String queueName,
+            @Value("${ignite.static.itemIdQueueName}") String queueName,
             CollectionConfiguration itemIdQueueConfiguration
     ) {
         return ignite.queue(queueName, 0, itemIdQueueConfiguration);
